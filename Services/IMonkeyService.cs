@@ -1,9 +1,20 @@
-using Svero.HelloWorld.Models;
+using Svero.MonkeysInCsharp.Models;
 
-namespace Svero.HelloWorld.Services;
+namespace Svero.MonkeysInCsharp.Services;
 
+/// <summary>
+/// Defines the methods a service for monkeys has to
+/// provide.
+/// <summary>
 public interface IMonkeyService {
-    Task<ICollection<Monkey>> GetMonkeys();
+	/// <summary>
+	/// Returns a collection of available monkeys.
+	/// </summary>
+    Task<ICollection<Monkey>> GetMonkeysAsync();
 
-    ICollection<Monkey> FindByName(string name);
+	/// <summary>
+	/// Returns a collection with monkeys with the
+	/// matching name. This collection can be empty.
+	/// </summary>
+    Task<ICollection<Monkey>> FindByNameAsync(string name);
 }

@@ -1,4 +1,4 @@
-namespace Svero.HelloWorld.Models;
+namespace Svero.MonkeysInCsharp.Models;
 
 public class Monkey {
     public string? Name { get; set; }

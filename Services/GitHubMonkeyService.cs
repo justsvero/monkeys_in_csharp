@@ -1,7 +1,7 @@
 using System.Net.Http.Json;
-using Svero.HelloWorld.Models;
+using Svero.MonkeysInCsharp.Models;
 
-namespace Svero.HelloWorld.Services;
+namespace Svero.MonkeysInCsharp.Services;
 
 /// <summary>
 /// Implements a monkey service using a JSON-based
@@ -13,18 +13,7 @@ public class GitHubMonkeyService : IMonkeyService
 
     List<Monkey> _monkeys = [];
 
-    public ICollection<Monkey> FindByName(string name)
-    {
-        throw new NotImplementedException();
-    }
-
-    public async Task<ICollection<Monkey>> GetMonkeys()
-    {
-        if (_monkeys?.Count > 0)
-        {
-            return _monkeys;
-        }
-
+    private async Task Refresh() {
         var client = new HttpClient();
 
         try
@@ -47,6 +36,26 @@ public class GitHubMonkeyService : IMonkeyService
             Console.Error.WriteLine($"An error occurred: {e.Message}");
         }
         
+    }
+
+    public async Task<ICollection<Monkey>> FindByNameAsync(string name)
+    {
+        if (_monkeys?.Count == 0) {
+            await Refresh();
+        }
+
+        return _monkeys?.FindAll(m => string.Equals(m.Name, name, StringComparison.InvariantCultureIgnoreCase)) ?? [];
+    }
+
+    public async Task<ICollection<Monkey>> GetMonkeysAsync()
+    {
+        if (_monkeys?.Count > 0)
+        {
+            return _monkeys;
+        }
+
+        await Refresh();
+
         return _monkeys ?? [];
     }
 }

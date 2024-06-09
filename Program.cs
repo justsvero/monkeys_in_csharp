@@ -1,6 +1,6 @@
-﻿using Svero.HelloWorld.Services;
+﻿using Svero.MonkeysInCsharp.Services;
 
-namespace Svero.HelloWorld;
+namespace Svero.MonkeysInCsharp;
 
 public class Program
 {
@@ -8,7 +8,7 @@ public class Program
     {
         var monkeyService = new GitHubMonkeyService();
 
-        var monkeys = await monkeyService.GetMonkeys();
+        var monkeys = await monkeyService.GetMonkeysAsync();
         if (monkeys?.Count > 0)
         {
             Console.WriteLine($"Found {monkeys.Count} monkey(s)");
